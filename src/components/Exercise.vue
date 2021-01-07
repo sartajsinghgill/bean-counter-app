@@ -12,10 +12,12 @@
             <li class="list-group-item">
                 <h4>Pushups: {{ pushups }}</h4>
                 <button class="btn btn-primary" @click="addPushups"><i class="far fa-plus-circle"></i> Add</button>
+                <button class="btn btn-danger mx-2" @click="removePushups"><i class="far fa-minus-circle"></i> Remove</button>
             </li>
             <li class="list-group-item">
                 <h4>Situps: {{ situps }}</h4>
                 <button class="btn btn-primary" @click="addSitups"><i class="far fa-plus-circle"></i> Add</button>
+                <button class="btn btn-danger mx-2" @click="removeSitups"><i class="far fa-minus-circle"></i> Remove</button>
             </li>
         </ul>
     </div>
@@ -40,6 +42,12 @@ export default {
     },
     addSitups(){
       this.situps++
+    },
+    removePushups(){
+      this.pushups--
+    },
+    removeSitups(){
+      this.situps--
     }
   }
 }
