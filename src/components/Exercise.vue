@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card m-3" style="width:30rem">
+    <div class="card m-3" style="width:20rem">
         <div class="card-body">
             <h5 class="card-title">
                 Sartaj's Daily exercise routine
