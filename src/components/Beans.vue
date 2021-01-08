@@ -1,28 +1,28 @@
 <template>
   <div>
-    <div class="card m-3 text-center border-light">
-      <h5 class="card-header">
+    <div class="card m-3 border-light">
+      <h5 class="card-header text-center ">
         Bean Counter (Count anything you like - pushups completed, seconds breath held etc.)
       </h5>
       <div class="card-body">
-          <div class="input-group mb-3 card-text">
-            <div class="input-group mb-3">
+          <div class="input-group mb-3 card-text" style="width:30%">
               <span class="input-group-text">New Counter</span>
-              <input type="text" name="addCounter" id="addCounter" class="form-control" v-model="addCounter">
-              <button class="input-group-text far fa-plus" @click="addNewCounter"></button>
-            </div>
+              <input type="text" name="addCounter" id="addCounter" class="form-control" v-model="addCounter" autofocus>
+              <button class="input-group-text far fa-plus btn btn-primary" @click="addNewCounter"> Add</button>
           </div>
+          <!--<button class="btn btn-success far fa-save mx-2" @click="storeToLocalStorage"> Save All</button>-->
+          <button class="btn btn-danger far fa-times mx-2" @click="clear"> Clear All</button>
       </div>
-      <div class="card-footer text-muted">
+      <div class="card-footer text-muted text-center">
         Built by Sartaj using VueJS
       </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-6 m-1">
+    <div class="row row-cols-1 row-cols-md-6 m-1 p-1">
       <div class="col" v-for="(item, index) in items" :key="item.id">
         <div class="card border-dark text-primary">
           <h5 class="card-header bg-transparent">
             {{ item.text }}
-            <button class="btn btn-danger far fa-times" @click="removeCounter(index)"></button>
+            <button class="btn btn-danger far fa-times float-end" @click="removeCounter(index)"></button>
           </h5>
           <div class="card-body">
             {{ item.count }}
@@ -68,6 +68,10 @@ export default {
     },
     removeCounter(index){
       this.items.splice(index,1)
+      this.storeToLocalStorage()
+    },
+    clear(){
+      this.items = []
       this.storeToLocalStorage()
     },
     storeToLocalStorage(){
