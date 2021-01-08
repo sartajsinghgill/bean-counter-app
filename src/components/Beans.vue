@@ -55,12 +55,14 @@ export default {
       }
     },
     addNewCounter(){
-      this.items.push(
-        {
-          text: this.addCounter,
-          count: 0
-        }
-      )
+      if(this.addCounter != ""){
+          this.items.push(
+          {
+            text: this.addCounter,
+            count: 0
+          }
+        )
+      }
       this.addCounter = ""
     },
     removeCounter(index){
