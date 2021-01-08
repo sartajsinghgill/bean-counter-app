@@ -1,53 +1,72 @@
 <template>
   <div>
-    <div class="card m-3" style="width:20rem">
-        <div class="card-body">
-            <h5 class="card-title">
-                Sartaj's Daily exercise routine
-            </h5>
-        </div>
+    <div class="card m-3 text-center border-light">
+      <h5 class="card-header">
+        Bean Counter (Count anything you like - pushups completed, seconds breath held etc.)
+      </h5>
+      <div class="card-body">
+          <div class="input-group mb-3 card-text">
+            <div class="input-group mb-3">
+              <span class="input-group-text">New Counter</span>
+              <input type="text" name="addCounter" id="addCounter" class="form-control" v-model="addCounter">
+              <button class="input-group-text far fa-plus" @click="addNewCounter"></button>
+            </div>
+          </div>
+      </div>
+      <div class="card-footer text-muted">
+        Built by Sartaj
+      </div>
     </div>
-    <div class="container-fluid" id="exercise">
-        <ul class="list-group">
-            <li class="list-group-item">
-                <h4>Pushups: {{ pushups }}</h4>
-                <button class="btn btn-primary" @click="addPushups"><i class="far fa-plus-circle"></i> Add</button>
-                <button class="btn btn-danger mx-2" @click="removePushups"><i class="far fa-minus-circle"></i> Remove</button>
-            </li>
-            <li class="list-group-item">
-                <h4>Situps: {{ situps }}</h4>
-                <button class="btn btn-primary" @click="addSitups"><i class="far fa-plus-circle"></i> Add</button>
-                <button class="btn btn-danger mx-2" @click="removeSitups"><i class="far fa-minus-circle"></i> Remove</button>
-            </li>
-        </ul>
+    <div class="row row-cols-1 row-cols-md-6 m-1">
+      <div class="col" v-for="(item, index) in items" :key="item.id">
+        <div class="card border-dark text-primary">
+          <h5 class="card-header bg-transparent">
+            {{ item.text }}
+            <button class="btn btn-danger far fa-times" @click="removeCounter(index)"></button>
+          </h5>
+          <div class="card-body">
+            {{ item.count }}
+            <br />
+            <button class="btn btn-outline-primary my-2 far fa-plus" @click="add(index)"></button>
+            <button class="btn btn-outline-danger mx-2 far fa-minus" @click="del(index)"></button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
-
+ 
 <script>
 export default {
   name: 'Exercise',
-  props: {
-    msg: String
-  },
   data() {
     return {
-      pushups: 0,
-      situps: 0
+      addCounter: "",
+      items: [
+        
+      ]
     }
   },
   methods: {
-    addPushups(){
-      this.pushups++
+    add(index){
+      this.items[index].count++
     },
-    addSitups(){
-      this.situps++
+    del(index){
+      if(this.items[index].count>0){
+        this.items[index].count--
+      }
     },
-    removePushups(){
-      this.pushups--
+    addNewCounter(){
+      this.items.push(
+        {
+          text: this.addCounter,
+          count: 0
+        }
+      )
+      this.addCounter = ""
     },
-    removeSitups(){
-      this.situps--
+    removeCounter(index){
+      this.items.splice(index,1)
     }
   }
 }
