@@ -16,7 +16,7 @@
           <button class="btn btn-danger far fa-times mx-2" @click="clear"> Clear All</button>
       </div>
       <div class="collapse multi-collapse show card-footer text-muted text-center">
-        Built by Sartaj using VueJS. All data stored using localstorage in browser
+        Built by Sartaj using VueJS. All data stored automatically at each interation using localstorage in browser
       </div>
     </div>
     <div class="row row-cols-1 row-cols-md-5 m-1 g-3">
@@ -51,10 +51,12 @@ export default {
   methods: {
     add(index){
       this.items[index].count++
+      this.storeToLocalStorage()
     },
     del(index){
       if(this.items[index].count>0){
         this.items[index].count--
+        this.storeToLocalStorage()
       }
     },
     addNewCounter(){
