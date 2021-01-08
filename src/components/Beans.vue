@@ -42,9 +42,7 @@ export default {
   data() {
     return {
       addCounter: "",
-      items: [
-        
-      ]
+      items: []
     }
   },
   methods: {

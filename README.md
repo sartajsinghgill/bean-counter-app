@@ -1,4 +1,4 @@
-# exercise-app
+# Bean Counter App
 
 ## Project setup
 ```

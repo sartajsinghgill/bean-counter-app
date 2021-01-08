@@ -1,14 +1,14 @@
 <template>
-  <Exercise />
+  <Beans />
 </template>
 
 <script>
-import Exercise from './components/Exercise.vue'
+import Beans from './components/Beans.vue'
 
 export default {
   name: 'App',
   components: {
-    Exercise
+    Beans
   }
 }
 </script>
