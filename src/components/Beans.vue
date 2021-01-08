@@ -5,10 +5,10 @@
         Bean Counter (Count anything you like - pushups completed, seconds breath held etc.)
       </h5>
       <div class="card-body">
-          <div class="input-group mb-3 card-text" style="width:30%">
+          <div class="input-group mb-3 card-text" style="width:50%">
               <span class="input-group-text">New Counter</span>
               <input type="text" name="addCounter" id="addCounter" class="form-control" v-model="addCounter" autofocus>
-              <button class="input-group-text far fa-plus btn btn-primary" @click="addNewCounter"> Add</button>
+              <button class="input-group-text far fa-plus btn btn-primary" @click="addNewCounter"></button>
           </div>
           <!--<button class="btn btn-success far fa-save mx-2" @click="storeToLocalStorage"> Save All</button>-->
           <button class="btn btn-danger far fa-times mx-2" @click="clear"> Clear All</button>
