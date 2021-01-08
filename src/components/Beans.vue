@@ -8,17 +8,18 @@
       <div class="collapse multi-collapse show card-body float-start">
           <div class="input-group mb-3 card-text container-sm">
               <span class="input-group-text">New Counter</span>
-              <input type="text" name="addCounter" id="addCounter" class="form-control" v-model="addCounter" autofocus>
+              <input type="text" name="counterLabel" id="counterLabel" class="form-control" v-model="counterLabel" autofocus :maxlength="counterLabelMax">
+              <span class="input-group-text" v-text="counterLabelMax-counterLabel.length"></span>
               <button class="input-group-text far fa-plus btn btn-primary" @click="addNewCounter"></button>
           </div>
           <!--<button class="btn btn-success far fa-save mx-2" @click="storeToLocalStorage"> Save All</button>-->
           <button class="btn btn-danger far fa-times mx-2" @click="clear"> Clear All</button>
       </div>
       <div class="collapse multi-collapse show card-footer text-muted text-center">
-        Built by Sartaj using VueJS
+        Built by Sartaj using VueJS. All data stored using localstorage in browser
       </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-6 m-1 p-1">
+    <div class="row row-cols-1 row-cols-md-5 m-1 g-3">
       <div class="col" v-for="(item, index) in items" :key="item.id">
         <div class="card border-dark text-primary">
           <h5 class="card-header bg-transparent">
@@ -42,7 +43,8 @@ export default {
   name: 'Exercise',
   data() {
     return {
-      addCounter: "",
+      counterLabel: "",
+      counterLabelMax:15,
       items: []
     }
   },
@@ -56,15 +58,15 @@ export default {
       }
     },
     addNewCounter(){
-      if(this.addCounter != ""){
+      if(this.counterLabel != ""){
           this.items.push(
           {
-            text: this.addCounter,
+            text: this.counterLabel,
             count: 0
           }
         )
       }
-      this.addCounter = ""
+      this.counterLabel = ""
       this.storeToLocalStorage()
     },
     removeCounter(index){
