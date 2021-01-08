@@ -1,3 +1,6 @@
 *:focus {
     box-shadow: none !important;
 }
+.disable-dbl-tap-zoom {
+    touch-action: manipulation;
+  }
