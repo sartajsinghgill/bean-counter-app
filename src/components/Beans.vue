@@ -14,7 +14,7 @@
           </div>
       </div>
       <div class="card-footer text-muted">
-        Built by Sartaj
+        Built by Sartaj using VueJS
       </div>
     </div>
     <div class="row row-cols-1 row-cols-md-6 m-1">
@@ -64,10 +64,18 @@ export default {
         )
       }
       this.addCounter = ""
+      this.storeToLocalStorage()
     },
     removeCounter(index){
       this.items.splice(index,1)
+      this.storeToLocalStorage()
+    },
+    storeToLocalStorage(){
+      localStorage.setItem("beanCounters", JSON.stringify(this.items))
     }
+  },
+  beforeMount(){
+    this.items = JSON.parse(localStorage.getItem("beanCounters"))
   }
 }
 </script>
