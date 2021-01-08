@@ -75,6 +75,9 @@ export default {
     }
   },
   beforeMount(){
+    if(!JSON.parse(localStorage.getItem("beanCounters"))){
+      localStorage.setItem("beanCounters", JSON.stringify([]))
+    }
     this.items = JSON.parse(localStorage.getItem("beanCounters"))
   }
 }
