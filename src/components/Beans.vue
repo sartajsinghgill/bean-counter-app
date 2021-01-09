@@ -85,6 +85,7 @@ export default {
     },
     removeCounter(index){
       this.items.splice(index,1)
+      clearInterval(this.items[index].intervalFunc)
       this.storeToLocalStorage()
     },
     clear(){
