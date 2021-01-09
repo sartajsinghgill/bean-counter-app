@@ -27,10 +27,19 @@
             <button class="btn btn-danger far fa-times float-end" @click="removeCounter(index)"></button>
           </h5>
           <div class="card-body disable-dbl-tap-zoom">
-            {{ item.count }}
-            <br />
-            <button class="btn btn-outline-primary my-2 far fa-plus" @click="add(index)"></button>
-            <button class="btn btn-outline-danger mx-2 far fa-minus" @click="del(index)"></button>
+            <span class="m-2">{{ item.count }}</span> 
+            <span class="float-end">
+              <button class="btn btn-outline-primary far fa-plus" @click="add(index)"></button>
+              <button class="btn btn-outline-danger mx-2 far fa-minus" @click="del(index)"></button>
+            </span>
+          </div>
+          <div class="card-footer bg-transparent">
+            <div class="input-group">
+              <div class="input-group-text">
+                <input type="checkbox" class="form-check-input" @change="timerStart(index)" v-model="item.timerChecked">
+              </div>
+              <input type="number" class="form-control" placeholder="Auto-increment(secs)" v-model="item.timerSeconds" min="0">
+            </div>
           </div>
         </div>
       </div>
@@ -64,7 +73,10 @@ export default {
           this.items.push(
           {
             text: this.counterLabel,
-            count: 0
+            count: 0,
+            timerSeconds: "",
+            timerChecked: false,
+            intervalFunc: function(){}
           }
         )
       }
@@ -79,6 +91,22 @@ export default {
       this.items = []
       this.storeToLocalStorage()
     },
+    timerStart(index){
+      if(this.items[index].timerChecked){
+        if(this.items[index].timerSeconds == ""){
+          this.items[index].timerSeconds = 1
+        }
+        var timeoutVal = this.items[index].timerSeconds*1000
+        this.items[index].intervalFunc = setInterval(function() {
+          this.add(index)
+        }.bind(this), timeoutVal)
+      }
+      else{
+        this.items[index].timerSeconds = ""
+        clearInterval(this.items[index].intervalFunc)
+      }
+    },
+
     storeToLocalStorage(){
       localStorage.setItem("beanCounters", JSON.stringify(this.items))
     }
@@ -90,4 +118,5 @@ export default {
     this.items = JSON.parse(localStorage.getItem("beanCounters"))
   }
 }
+// https://github.com/sartajsinghgill/bean-counter-app.git
 </script>
