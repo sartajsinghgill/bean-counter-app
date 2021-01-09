@@ -84,8 +84,8 @@ export default {
       this.storeToLocalStorage()
     },
     removeCounter(index){
-      this.items.splice(index,1)
       clearInterval(this.items[index].intervalFunc)
+      this.items.splice(index,1)
       this.storeToLocalStorage()
     },
     clear(){
@@ -107,7 +107,6 @@ export default {
         clearInterval(this.items[index].intervalFunc)
       }
     },
-
     storeToLocalStorage(){
       localStorage.setItem("beanCounters", JSON.stringify(this.items))
     }
