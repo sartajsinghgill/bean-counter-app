@@ -27,11 +27,14 @@
             <button class="btn btn-danger far fa-times float-end" @click="removeCounter(index)"></button>
           </h5>
           <div class="card-body disable-dbl-tap-zoom">
-            <span class="m-2">{{ item.count }}</span> 
+            <span class="m-2">{{ item.count }}</span>
             <span class="float-end">
               <button class="btn btn-outline-primary far fa-plus" @click="add(index)"></button>
               <button class="btn btn-outline-danger mx-2 far fa-minus" @click="del(index)"></button>
             </span>
+            <div class="progress btn-sm" v-if="item.progressVal != ''">
+              <div :style="{width: item.progressVal+'%'}" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"></div>
+            </div>
           </div>
           <div class="card-footer bg-transparent">
             <div class="input-group">
@@ -76,7 +79,9 @@ export default {
             count: 0,
             timerSeconds: "",
             timerChecked: false,
-            intervalFunc: function(){}
+            progressVal: "",
+            intervalFunc: function(){},
+            progressFunc: function(){}
           }
         )
       }
@@ -85,6 +90,7 @@ export default {
     },
     removeCounter(index){
       clearInterval(this.items[index].intervalFunc)
+      clearInterval(this.items[index].progressFunc)
       this.items.splice(index,1)
       this.storeToLocalStorage()
     },
@@ -97,14 +103,28 @@ export default {
         if(this.items[index].timerSeconds == ""){
           this.items[index].timerSeconds = 1
         }
-        var timeoutVal = this.items[index].timerSeconds*1000
+        if(this.items[index].progressVal == ""){
+          this.items[index].progressVal = 1
+        }
+        let progressTimeoutVal = this.items[index].timerSeconds*10 
+        this.items[index].progressFunc = setInterval(function() {
+          if(this.items[index].progressVal != 100){
+            this.items[index].progressVal++
+          }
+          else{
+            this.items[index].progressVal = 0
+          }
+        }.bind(this), progressTimeoutVal)
+        let intervalTimeoutVal = this.items[index].timerSeconds*1000
         this.items[index].intervalFunc = setInterval(function() {
           this.add(index)
-        }.bind(this), timeoutVal)
+        }.bind(this), intervalTimeoutVal)
       }
       else{
         this.items[index].timerSeconds = ""
         clearInterval(this.items[index].intervalFunc)
+        this.items[index].progressVal = ""
+        clearInterval(this.items[index].progressFunc)
       }
     },
     storeToLocalStorage(){
