@@ -32,8 +32,8 @@
               <button class="btn btn-outline-primary far fa-plus" @click="add(index)"></button>
               <button class="btn btn-outline-danger mx-2 far fa-minus" @click="del(index)"></button>
             </span>
-            <div class="progress btn-sm" v-if="item.progressVal != ''">
-              <div :style="{width: item.progressVal+'%'}" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"></div>
+            <div>
+              <progress v-bind:value="item.progressVal" max="100" v-if="item.progressVal != ''"></progress>
             </div>
           </div>
           <div class="card-footer bg-transparent">
